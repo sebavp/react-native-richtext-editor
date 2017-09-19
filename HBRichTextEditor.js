@@ -4,13 +4,13 @@
 import React, { Component } from 'react';
 var ReactNative = require('react-native');
 
-var WebViewBridge = require('react-native-webview-bridge');
 var HBEditorConstants = require('./HBEditorConstants');
 var HBEditorEventEmitter = require('./HBEditorEventEmitter');
 
 var {
     StyleSheet,
-    AlertIOS
+    AlertIOS,
+    WebView
     } = ReactNative;
 
 class HBRichTextEditor extends Component {
@@ -112,12 +112,10 @@ class HBRichTextEditor extends Component {
 
     render() {
         return (
-            <WebViewBridge
-                {...this.props}
+            <WebView
                 ref="webviewbridge"
-                onBridgeMessage={this.onBridgeMessage.bind(this)}
-                onShouldStartLoadWithRequest={this.onShouldStartLoadRequest.bind(this)}
-                hideKeyboardAccessoryView={true}
+                onMessage={this.onBridgeMessage.bind(this)}
+                onLoadStart={this.onShouldStartLoadRequest.bind(this)}
                 source={require('./editor.html')}/>
         );
     }
